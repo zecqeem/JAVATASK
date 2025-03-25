@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class ExcelService {
 
-    // Метод для збереження продуктів в Excel
     public File saveProductsToExcel(List<Product> products, float currency) {
 
         Workbook workbook = new XSSFWorkbook();
@@ -38,12 +37,12 @@ public class ExcelService {
             row.createCell(4).setCellValue(product.getProductUrl());
         }
 
-        //Підгонка розміру
+        //Changing size
         for (int i = 0; i < 5; i++) { // 5 столбцов
             sheet.autoSizeColumn(i);
         }
 
-        // Зберігаємо файл у тимчасовій папці
+        // Saving in temp dir
         File file = new File(System.getProperty("java.io.tmpdir") + "products.xlsx");
         try (FileOutputStream fileOut = new FileOutputStream(file)) {
             workbook.write(fileOut);

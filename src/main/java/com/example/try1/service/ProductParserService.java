@@ -21,7 +21,7 @@ public class ProductParserService {
         try {
             Document doc = Jsoup.connect(URL).get();
 
-            // Шукаємо блоки товарів
+            // looking for goods
             Elements items = doc.select(".goods-tile");
 
             for (Element item : items) {
