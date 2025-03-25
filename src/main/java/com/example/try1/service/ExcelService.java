@@ -18,7 +18,7 @@ public class ExcelService {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Продукти");
 
-        // Створюємо заголовки стовпців
+
         Row header = sheet.createRow(0);
         header.createCell(0).setCellValue("Назва");
         header.createCell(1).setCellValue("Ціна в гривнях");
@@ -26,19 +26,19 @@ public class ExcelService {
         header.createCell(3).setCellValue("Зображення");
         header.createCell(4).setCellValue("Посилання");
 
-        // Заповнюємо даними
+
         int rowNum = 1;
         for (Product product : products) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(product.getTitle());
             row.createCell(1).setCellValue(product.getPrice());
             float dollarPrice = product.getPrice() / currency;
-            row.createCell(2).setCellValue(dollarPrice);  // Исправлено на столбец 2
+            row.createCell(2).setCellValue(dollarPrice);
             row.createCell(3).setCellValue(product.getImageUrl());
             row.createCell(4).setCellValue(product.getProductUrl());
         }
 
-        // Автоматически подстраиваем ширину столбцов по содержимому
+        //Підгонка розміру
         for (int i = 0; i < 5; i++) { // 5 столбцов
             sheet.autoSizeColumn(i);
         }

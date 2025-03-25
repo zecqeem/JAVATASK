@@ -4,6 +4,7 @@ import com.example.try1.model.Product;
 import com.example.try1.service.CurrencyService;
 import com.example.try1.service.ExcelService;
 import com.example.try1.service.ProductParserService;
+import com.example.try1.service.DatabaseHandler;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -24,11 +25,16 @@ public class ProductController {
     private final ProductParserService parserService;
     private final CurrencyService currencyService;
     private final ExcelService excelService;
+    private final DatabaseHandler databaseHandler;
 
-    public ProductController(ProductParserService parserService, CurrencyService currencyService, ExcelService excelService) {
+    public ProductController(ProductParserService parserService,
+                             CurrencyService currencyService,
+                             ExcelService excelService,
+                             DatabaseHandler databaseHandler) {
         this.parserService = parserService;
         this.currencyService = currencyService;
         this.excelService = excelService;
+        this.databaseHandler = databaseHandler;
     }
 
     @GetMapping
@@ -41,8 +47,10 @@ public class ProductController {
         List<Product> products = parserService.getProducts();
         float usdRate = currencyService.getUsdRate();
         File file = excelService.saveProductsToExcel(products, usdRate);
-        Resource resource = new FileSystemResource(file);
 
+        databaseHandler.processExcelFile(file);
+
+        Resource resource = new FileSystemResource(file);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products.xlsx")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)

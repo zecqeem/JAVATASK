@@ -27,7 +27,7 @@ public class ProductParserService {
             for (Element item : items) {
                 String title = item.select(".goods-tile__title").text();
 
-                // Получаем цену как строку и пытаемся преобразовать ее в float
+
                 String priceStr = item.select(".goods-tile__price-value").text();
                 float price = parsePrice(priceStr);
 
@@ -46,12 +46,11 @@ public class ProductParserService {
 
     private float parsePrice(String priceStr) {
         try {
-            // Убираем все нечисловые символы и преобразуем в число
             String cleanedPrice = priceStr.replaceAll("[^0-9.,]", "").replace(",", ".");
             return Float.parseFloat(cleanedPrice);
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            return 0.0f; // Возвращаем 0, если не удалось преобразовать цену
+            return 0.0f;
         }
     }
 }

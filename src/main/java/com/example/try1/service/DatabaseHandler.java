@@ -1,12 +1,14 @@
-package com.example.try1;
+package com.example.try1.service;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class DatabaseHandler {
     private static final String JDBC_URL = "jdbc:h2:./database";
     private static final String USER = "sa";
@@ -46,13 +48,12 @@ public class DatabaseHandler {
     private void createTable(Connection connection, String tableName, List<String> headers) throws SQLException {
         StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (");
 
-        // Преобразуем имена столбцов, заменяя пробелы на подчеркивания
         for (String header : headers) {
-            String columnName = header.replaceAll("\\s+", "_");  // заменяем пробелы на _
+            String columnName = header.replaceAll("\\s+", "_");
             sql.append(columnName).append(" TEXT, ");
         }
 
-        sql.setLength(sql.length() - 2); // Убираем последнюю запятую
+        sql.setLength(sql.length() - 2);
         sql.append(")");
 
         try (Statement stmt = connection.createStatement()) {
@@ -61,7 +62,7 @@ public class DatabaseHandler {
     }
 
     private void insertData(Connection connection, Sheet sheet, String tableName, List<String> headers) throws SQLException {
-        // Заменяем пробелы на подчеркивания в именах столбцов для вставки
+
         List<String> formattedHeaders = new ArrayList<>();
         for (String header : headers) {
             formattedHeaders.add(header.replaceAll("\\s+", "_"));
@@ -69,7 +70,7 @@ public class DatabaseHandler {
 
         StringBuilder sql = new StringBuilder("INSERT INTO ").append(tableName).append(" (");
         sql.append(String.join(", ", formattedHeaders)).append(") VALUES (" + "?, ".repeat(formattedHeaders.size()));
-        sql.setLength(sql.length() - 2); // Убираем последнюю запятую
+        sql.setLength(sql.length() - 2);
         sql.append(")");
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql.toString())) {
