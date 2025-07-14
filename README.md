@@ -1,28 +1,25 @@
 # Spring Boot Excel Data Parser
 
-Це програма на базі **Spring Boot**, яка автоматизує процес парсингу товарів з сайту **Rozetka**, отримання курсу долара через **API ПриватБанку**, конвертації цін та збереження результатів в **Excel файл**. Вона також зберігає дані в локальній **базі даних H2** для подальшої обробки.
+This is a **Spring Boot**-based application that automates the process of parsing product data from **Rozetka**, fetching the current USD exchange rate via **PrivatBank's API**, converting prices, and saving the results into an **Excel file**. It also stores product data in a local **H2 database** for further use.
 
-## Основні функції програми:
+## Key Features:
 
-- **Отримання курсу долара**: Програма підключається до **REST API ПриватБанку** для отримання актуального курсу долара.
-- **Парсинг товарів з Rozetka**: Збирає дані про товари, такі як назва, ціна в гривнях, ціна в доларах, зображення і посилання на товар.
-- **Конвертація цін**: Всі ціни товарів автоматично конвертуються в долари за актуальним курсом.
-- **Збереження в Excel**: Програма формує Excel файл з усіма зібраними даними для подальшого використання.
-- **Збереження в базі даних**: Дані з товарів зберігаються в локальній базі даних **H2**.
+- **Fetch USD Exchange Rate**: The app connects to **PrivatBank's REST API** to get the latest USD exchange rate.
+- **Parse Products from Rozetka**: Collects product data such as name, price in UAH and USD, image URL, and product link.
+- **Currency Conversion**: All prices are automatically converted to USD using the latest exchange rate.
+- **Excel Export**: The application generates an Excel file with all collected product data.
+- **Data Storage**: All parsed products are also stored in a local **H2 database**.
 
-## Як працює програма:
+## How It Works:
 
-1. Користувач запускає додаток.
-2. Програма підключається до API ПриватБанку і отримує курс долара.
-3. Далі програма збирає дані з Rozetka — назву товарів, ціни в гривнях, зображення та посилання.
-4. Ціни конвертуються в долари, використовуючи отриманий курс.
-5. Дані зберігаються в **Excel файл** і в **базу даних H2**.
+1. The user runs the application.
+2. The app connects to PrivatBank's API and fetches the current exchange rate.
+3. Then it parses product data from Rozetka: names, prices in UAH, images, and links.
+4. Prices are converted to USD using the retrieved exchange rate.
+5. All data is saved into both an **Excel file** and the **H2 database**.
 
-## Як запустити:
+## How to Run:
 
-1. Завантажте **`BAT`** та **`JAR`** файли з розділу **Releases** на GitHub.
-2. Запустіть **`BAT`** файл на вашому комп'ютері.
-3. Після запуску програми, ви зможете зайти на **`localhost:8080`** для взаємодії з додатком.
-
-
-
+1. Download the **`BAT`** and **`JAR`** files from the **Releases** section on GitHub.
+2. Run the **`BAT`** file on your computer.
+3. Once started, access the app via **`localhost:8080`** to interact with the interface.
